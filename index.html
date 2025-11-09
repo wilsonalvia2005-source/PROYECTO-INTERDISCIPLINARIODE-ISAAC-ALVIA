@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Costa Rica: Pura Vida - Presentación Académica</title>
+    <!-- Carga de Tailwind CSS para el diseño responsivo y moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Configuración de la fuente y estilos base */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc; /* Color de fondo muy claro */
+        }
+        .page-content {
+            min-height: calc(100vh - 80px); /* Altura mínima para el contenido, restando el nav */
+        }
+        /* Estilo para un botón interactivo llamativo */
+        .interactive-btn {
+            background-color: #0d9488; /* Teal 600 */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .interactive-btn:hover {
+            background-color: #0f766e; /* Teal 700 */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Barra de Navegación Fija y Responsiva -->
+    <nav class="bg-teal-700 shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#" onclick="loadPage('home')" class="text-white text-2xl font-extrabold tracking-wider">
+                    <span class="hidden sm:inline">Costa Rica:</span> Pura Vida
+                </a>
+                
+                <!-- Menú de Navegación Principal -->
+                <div class="flex space-x-4">
+                    <button onclick="loadPage('home')" class="nav-link text-white hover:text-teal-200 transition duration-150 p-2 rounded-lg">
+                        Inicio
+                    </button>
+                    <button onclick="loadPage('desarrollo')" class="nav-link text-white hover:text-teal-200 transition duration-150 p-2 rounded-lg">
+                        Desarrollo
+                    </button>
+                    <button onclick="loadPage('recursos')" class="nav-link text-white hover:text-teal-200 transition duration-150 p-2 rounded-lg">
+                        Recursos
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor Principal del Contenido (SPA-like) -->
+    <main id="content-container" class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 page-content">
+        <!-- El contenido de la página se cargará aquí mediante JavaScript -->
+    </main>
+
+    <!-- Pie de Página (Footer) -->
+    <footer class="bg-gray-800 text-white p-6 mt-10">
+        <div class="max-w-7xl mx-auto text-center text-sm">
+            <p>&copy; 2024 Proyecto Académico sobre Costa Rica. | Todos los derechos reservados.</p>
+            <p class="mt-2 text-gray-400">Desarrollado con HTML, CSS (Tailwind) y JavaScript.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Definición de las constantes y utilidades
+        const contentContainer = document.getElementById('content-container');
+        
+        // --- 1. Contenido de las Páginas (HTML como plantillas) ---
+
+        const pages = {
+            'home': `
+                <!-- Página de Inicio (Portada del Viaje) -->
+                <section id="home" class="space-y-12">
+                    <header class="text-center pt-8 pb-12 bg-white rounded-xl shadow-lg">
+                        <h1 class="text-5xl md:text-6xl font-black text-teal-800 mb-4">
+                            Pura Vida: Un Viaje a Costa Rica
+                        </h1>
+                        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                            Descubre el corazón verde de América Central, una tierra de biodiversidad, paz y gente acogedora.
+                        </p>
+                    </header>
+
+                    <!-- Introducción General y Mapa Representativo -->
+                    <div class="grid md:grid-cols-2 gap-10 items-center bg-white p-6 rounded-xl shadow-lg">
+                        <div>
+                            <h2 class="text-3xl font-bold text-teal-700 mb-4">Biodiversidad y Paz</h2>
+                            <p class="mb-4 text-lg">
+                                Costa Rica es reconocida mundialmente por su compromiso con la sostenibilidad y por ser una de las pocas naciones sin ejército desde 1948. Esta estabilidad ha permitido que el país enfoque sus recursos en la educación y la conservación, albergando cerca del 5% de la biodiversidad mundial en tan solo el 0.03% de la superficie terrestre. Es un modelo global de ecoturismo.
+                            </p>
+                            <p class="italic text-gray-500">
+                                La expresión "Pura Vida" encapsula la filosofía nacional: un saludo, una despedida, o simplemente una forma de decir que todo está bien.
+                            </p>
+                        </div>
+                        <div class="relative overflow-hidden rounded-xl shadow-2xl">
+                            <!-- Imagen Representativa (Simulando un mapa interactivo) -->
+                            <img src="https://placehold.co/800x500/0d9488/ffffff?text=Mapa+Representativo+de+Costa+Rica" 
+                                 alt="Mapa representativo de Costa Rica con áreas naturales destacadas" 
+                                 class="w-full h-auto transform transition duration-500 hover:scale-[1.03] cursor-pointer"
+                                 title="Haz clic para ver un detalle (Interactivo)">
+                            <div class="absolute bottom-0 right-0 p-3 bg-black bg-opacity-50 text-white text-xs rounded-tl-lg">
+                                Interacción: Haz hover para zoom.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección Destacada con Interactividad: Gastronomía (Botón) -->
+                    <div class="bg-amber-50 p-8 rounded-xl shadow-lg border-l-8 border-amber-500">
+                        <h2 class="text-3xl font-bold text-amber-700 mb-4">Sección Destacada: El Sabor del Pura Vida</h2>
+                        <p class="text-lg mb-6">
+                            La gastronomía costarricense es sencilla, fresca y se basa en ingredientes naturales. Refleja la calidez de su gente y la riqueza de su tierra.
+                        </p>
+                        
+                        <div class="flex flex-col md:flex-row gap-6 items-center">
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-semibold mb-3">El Gallo Pinto</h3>
+                                <p class="mb-4">
+                                    Es el plato nacional, una mezcla de arroz y frijoles cocidos con especias, especialmente la Salsa Lizano. Es la base de casi todas las comidas, ¡ideal para el desayuno!
+                                </p>
+                                <button id="gastronomy-btn" 
+                                        class="interactive-btn text-white font-bold py-3 px-6 rounded-full shadow-lg mt-2 text-base uppercase"
+                                        onclick="showFunFact()">
+                                    ¿Cuál es el secreto de la Salsa Lizano?
+                                </button>
+                                <p id="fun-fact-reveal" class="mt-4 text-green-700 font-medium hidden transition duration-300 ease-in-out bg-green-100 p-3 rounded-lg">
+                                    <span class="font-bold">El Secreto:</span> La Salsa Lizano es una salsa inglesa suave con vegetales, vinagre, azúcar y especias, que proporciona un sabor único y ligeramente dulce al Gallo Pinto. ¡Es esencial!
+                                </p>
+                            </div>
+                            <img src="https://placehold.co/400x250/f97316/ffffff?text=Gallo+Pinto" 
+                                 alt="Plato de Gallo Pinto, el plato nacional de Costa Rica" 
+                                 class="w-full md:w-1/3 object-cover rounded-lg shadow-xl"/>
+                        </div>
+                    </div>
+
+                    <!-- Interacción Adicional: Video Representativo -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h2 class="text-3xl font-bold text-teal-700 mb-4">Interacción: Video de Naturaleza</h2>
+                        <div class="aspect-w-16 aspect-h-9 overflow-hidden rounded-xl shadow-xl">
+                            <!-- Simulacro de video de YouTube (Interacción clave) -->
+                            <iframe width="100%" height="450" 
+                                src="https://www.youtube.com/embed/SjV-V36Y5h0" 
+                                title="Video Representativo de Costa Rica (Naturaleza)" 
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen 
+                                class="w-full h-full"></iframe>
+                        </div>
+                        <p class="text-center mt-3 text-sm text-gray-500">
+                            Fuente: Video representativo de promoción turística.
+                        </p>
+                    </div>
+
+                </section>
+            `,
+            'desarrollo': `
+                <!-- Página de Desarrollo (Cultura, Historia y Geografía) -->
+                <section id="desarrollo" class="space-y-12">
+                    <h1 class="text-4xl font-bold text-teal-800 mb-8 text-center">Desarrollo Temático: Los Pilares de Costa Rica</h1>
+                    
+                    <!-- Navegación de Pestañas (Tabs) para Desarrollo -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <div class="flex border-b border-gray-200" id="desarrollo-tabs">
+                            <button class="tab-button py-3 px-6 font-semibold text-lg text-gray-600 hover:text-teal-700 border-b-4 border-transparent focus:outline-none" 
+                                    onclick="showDesarrolloTab('cultura')" id="tab-cultura">
+                                Características Culturales
+                            </button>
+                            <button class="tab-button py-3 px-6 font-semibold text-lg text-gray-600 hover:text-teal-700 border-b-4 border-transparent focus:outline-none" 
+                                    onclick="showDesarrolloTab('historia')" id="tab-historia">
+                                Aspectos Históricos
+                            </button>
+                            <button class="tab-button py-3 px-6 font-semibold text-lg text-gray-600 hover:text-teal-700 border-b-4 border-transparent focus:outline-none" 
+                                    onclick="showDesarrolloTab('geografia')" id="tab-geografia">
+                                Datos Geográficos
+                            </button>
+                        </div>
+                        
+                        <div id="tab-content" class="pt-6">
+                            <!-- Contenido de Cultura -->
+                            <div id="content-cultura" class="tab-pane space-y-4">
+                                <h2 class="text-3xl font-bold text-teal-700">Cultura: Gastronomía, Música y Vestimenta</h2>
+                                
+                                <div class="grid md:grid-cols-3 gap-6 pt-4">
+                                    <div>
+                                        <h3 class="text-xl font-semibold text-amber-600 mb-2">Gastronomía</h3>
+                                        <p>La dieta es a base de arroz, frijoles, plátanos, verduras y carne (res, pollo o pescado). Además del Gallo Pinto, el **Casado** es el almuerzo típico: arroz, frijoles, plátano maduro frito, ensalada y carne. El café costarricense es mundialmente famoso.</p>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-semibold text-amber-600 mb-2">Música y Danza</h3>
+                                        <p>La música es influenciada por ritmos caribeños y españoles. La **Salsa** y el **Merengue** son populares, pero la música folclórica incluye el **Punto Guanacasteco** (la danza nacional). El **Calipso** es prominente en la costa caribeña (Limón).</p>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-semibold text-amber-600 mb-2">Vestimenta</h3>
+                                        <p>La vestimenta diaria es moderna, pero la tradicional (usada en festivales) para las mujeres es una falda larga, colorida y floreada, con una blusa blanca y rebozo. Para los hombres, pantalones blancos, camisa blanca, pañuelo rojo y el sombrero de ala.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Contenido de Historia -->
+                            <div id="content-historia" class="tab-pane hidden space-y-4">
+                                <h2 class="text-3xl font-bold text-teal-700">Historia: La Larga Paz</h2>
+                                <p class="text-lg">
+                                    A diferencia de sus vecinos, la historia de Costa Rica se caracteriza por una estabilidad política y un desarrollo social temprano.
+                                </p>
+                                <ul class="list-disc list-inside space-y-2 pl-4">
+                                    <li><strong class="text-teal-600">Periodo Colonial:</strong> Fue una provincia pobre y remota del Imperio Español. Esto llevó a una sociedad de pequeños propietarios, sin grandes plantaciones ni una élite militar fuerte.</li>
+                                    <li><strong class="text-teal-600">Independencia (1821):</strong> La noticia de la independencia de España llegó tarde, y el país se separó pacíficamente de las Provincias Unidas del Centro de América.</li>
+                                    <li><strong class="text-teal-600">Abolición del Ejército (1948):</strong> Tras una breve Guerra Civil en 1948, el presidente José Figueres Ferrer abolió el ejército de forma permanente. Los recursos militares se redirigieron a la educación y la salud, sentando las bases de la democracia moderna y el bienestar social del país.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Contenido de Geografía -->
+                            <div id="content-geografia" class="tab-pane hidden space-y-4">
+                                <h2 class="text-3xl font-bold text-teal-700">Geografía: Un Tesoro Natural</h2>
+                                <p class="text-lg">
+                                    Ubicada en el istmo centroamericano, Costa Rica limita al norte con Nicaragua y al sureste con Panamá, flanqueada por el Océano Pacífico y el Mar Caribe.
+                                </p>
+                                <ul class="list-disc list-inside space-y-2 pl-4">
+                                    <li><strong class="text-teal-600">Clima:</strong> Principalmente tropical. Tiene dos estaciones: la seca (verano) y la lluviosa (invierno).</li>
+                                    <li><strong class="text-teal-600">Relieve:</strong> Dominado por sistemas montañosos que incluyen volcanes activos (Arenal, Poás) y cordilleras que dividen las costas. Esto crea microclimas y una gran variedad de ecosistemas.</li>
+                                    <li><strong class="text-teal-600">Áreas Protegidas:</strong> Más del 25% del territorio está designado como parques nacionales, reservas biológicas o refugios de vida silvestre, siendo un líder en conservación.</li>
+                                </ul>
+                                <img src="https://placehold.co/800x400/065f46/ffffff?text=Paisaje+Montañoso+y+Volcánico" 
+                                     alt="Ilustración de un paisaje montañoso y volcánico de Costa Rica" 
+                                     class="mt-6 w-full object-cover rounded-xl shadow-lg"/>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `,
+            'recursos': `
+                <!-- Página de Recursos (Fuentes y Curiosidades) -->
+                <section id="recursos" class="space-y-12 bg-white p-8 rounded-xl shadow-lg">
+                    <h1 class="text-4xl font-bold text-teal-800 mb-8 text-center">Recursos y Datos Adicionales</h1>
+                    
+                    <!-- Fuentes Bibliográficas (Ficticias para el proyecto) -->
+                    <div>
+                        <h2 class="text-3xl font-bold text-teal-700 mb-4 border-b pb-2">Fuentes Bibliográficas (Ejemplo)</h2>
+                        <ul class="space-y-4 text-lg">
+                            <li class="p-3 bg-gray-50 rounded-lg">
+                                <strong class="text-teal-600">Libro:</strong> 
+                                Sánchez, M. (2022). 
+                                <em>Pura Vida: La historia de un país sin ejército.</em> 
+                                Editorial Nacional.
+                            </li>
+                            <li class="p-3 bg-gray-50 rounded-lg">
+                                <strong class="text-teal-600">Artículo Académico:</strong> 
+                                Rodríguez, C. & Valverde, J. (2023). 
+                                "Ecoturismo y Sostenibilidad en Costa Rica: Un Caso de Estudio." 
+                                <em>Revista de Geografía Ambiental</em>, 15(2), 45-60.
+                            </li>
+                            <li class="p-3 bg-gray-50 rounded-lg">
+                                <strong class="text-teal-600">Sitio Web:</strong> 
+                                Instituto Costarricense de Turismo. 
+                                <em>Flora y Fauna de Costa Rica.</em> 
+                                Recuperado de: 
+                                <a href="https://ejemplo-ict.org" target="_blank" class="text-blue-500 hover:underline">www.ejemplo-ict.org</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Datos Curiosos o Información Adicional -->
+                    <div class="pt-8">
+                        <h2 class="text-3xl font-bold text-teal-700 mb-4 border-b pb-2">Datos Curiosos o Información Adicional</h2>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="p-4 bg-lime-50 rounded-xl border border-lime-200">
+                                <h3 class="text-xl font-semibold text-lime-700 mb-2">Electricidad Limpia</h3>
+                                <p>Costa Rica genera consistentemente más del 98% de su electricidad a partir de fuentes renovables, principalmente hidroeléctrica, geotérmica, eólica y solar.</p>
+                            </div>
+                            <div class="p-4 bg-lime-50 rounded-xl border border-lime-200">
+                                <h3 class="text-xl font-semibold text-lime-700 mb-2">El Quetzal</h3>
+                                <p>El quetzal es una de las aves más esquivas y hermosas del mundo, y se encuentra en los bosques nubosos de Costa Rica, un símbolo de la riqueza natural del país.</p>
+                            </div>
+                            <div class="p-4 bg-lime-50 rounded-xl border border-lime-200">
+                                <h3 class="text-xl font-semibold text-lime-700 mb-2">Zonas Azules (Blue Zones)</h3>
+                                <p>La Península de Nicoya es una de las cinco Zonas Azules del mundo, lugares donde la gente vive significativamente más y más saludable.</p>
+                            </div>
+                            <div class="p-4 bg-lime-50 rounded-xl border border-lime-200">
+                                <h3 class="text-xl font-semibold text-lime-700 mb-2">Café de Altura</h3>
+                                <p>Por ley, solo se permite cultivar la variedad de café arábica de alta calidad en el país, lo que garantiza su reputación internacional.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `
+        };
+
+        // --- 2. Lógica de Navegación (SPA) ---
+        
+        /**
+         * Carga el contenido de la página solicitada en el contenedor principal.
+         * @param {string} pageId - Identificador de la página ('home', 'desarrollo', 'recursos').
+         */
+        function loadPage(pageId) {
+            contentContainer.innerHTML = pages[pageId] || pages['home'];
+            
+            // Lógica específica después de cargar la página
+            if (pageId === 'desarrollo') {
+                // Asegura que la pestaña de Cultura esté visible por defecto en la página de Desarrollo
+                showDesarrolloTab('cultura');
+            }
+            
+            // Actualizar el estilo de los botones de navegación (opcional)
+            document.querySelectorAll('.nav-link').forEach(btn => {
+                btn.classList.remove('font-bold', 'bg-teal-800');
+            });
+            const activeNavButton = document.querySelector(`[onclick="loadPage('${pageId}')"]`);
+            if (activeNavButton) {
+                activeNavButton.classList.add('font-bold', 'bg-teal-800');
+            }
+        }
+
+        // --- 3. Lógica de Interactividad y Desarrollo ---
+
+        /**
+         * Muestra el dato curioso de gastronomía en la página de Inicio.
+         */
+        function showFunFact() {
+            const factElement = document.getElementById('fun-fact-reveal');
+            const button = document.getElementById('gastronomy-btn');
+
+            if (factElement.classList.contains('hidden')) {
+                factElement.classList.remove('hidden');
+                button.textContent = "¡Ocultar información!";
+                button.classList.remove('bg-teal-700');
+                button.classList.add('bg-red-500');
+            } else {
+                factElement.classList.add('hidden');
+                button.textContent = "¿Cuál es el secreto de la Salsa Lizano?";
+                button.classList.add('bg-teal-700');
+                button.classList.remove('bg-red-500');
+            }
+        }
+
+        /**
+         * Maneja la navegación por pestañas dentro de la Página de Desarrollo.
+         * @param {string} tabId - Identificador de la pestaña a mostrar ('cultura', 'historia', 'geografia').
+         */
+        function showDesarrolloTab(tabId) {
+            // Ocultar todos los contenidos de las pestañas
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.add('hidden');
+            });
+
+            // Desactivar todos los botones de las pestañas
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('text-teal-700', 'border-teal-700');
+                btn.classList.add('text-gray-600', 'border-transparent');
+            });
+
+            // Mostrar el contenido y activar el botón correspondiente
+            // CORREGIDO: Se eliminó el caracter de escape (\) antes de las comillas de la plantilla literal (backticks)
+            const content = document.getElementById(`content-${tabId}`);
+            const button = document.getElementById(`tab-${tabId}`);
+            
+            if (content && button) {
+                content.classList.remove('hidden');
+                button.classList.add('text-teal-700', 'border-teal-700');
+                button.classList.remove('text-gray-600', 'border-transparent');
+            }
+        }
+
+        // Carga la página de inicio al cargar el sitio
+        window.onload = () => {
+            loadPage('home');
+        };
+    </script>
+
+</body>
+</html>
